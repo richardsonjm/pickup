@@ -44,6 +44,9 @@ end
 
 group :test do
   gem 'shoulda-matchers', require: false
+  gem 'poltergeist'
+  gem 'selenium-webdriver'
+  gem 'launchy'
 end
 
 # Gems to install outside the Gemfile
