@@ -11,3 +11,12 @@
 /log/*
 !/log/.keep
 /tmp
+
+# Ignore ctags files
+TAGS
+
+# Ignore environment variables
+/.env
+
+# Ignore other unneeded files
+.DS_Store
