@@ -10,6 +10,9 @@ gem 'dotenv-rails', group: [:development, :test]
 # Database
 gem 'pg', '~> 0.15'
 
+# Factories
+gem 'factory_girl_rails'
+
 # Assets
 gem 'sass-rails', '~> 5.0'
 gem 'uglifier', '>= 1.3.0'
