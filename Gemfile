@@ -47,6 +47,7 @@ group :test do
   gem 'poltergeist'
   gem 'selenium-webdriver'
   gem 'launchy'
+  gem 'database_cleaner'
 end
 
 # Gems to install outside the Gemfile
