@@ -25,6 +25,10 @@ module Pickup
     config.generators do |g|
       g.helper false
       g.stylesheet_engine :sass
+      g.view_specs false
+      g.helper_specs false
+      g.test_framework :rspec, fixture: true
+      g.fixture_replacement :factory_girl
     end
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
