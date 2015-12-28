@@ -4,6 +4,9 @@ ruby '2.2.0'
 
 gem 'rails', '4.2.5'
 
+# Env variables (must be at top)
+gem 'dotenv-rails', group: [:development, :test]
+
 # Database
 gem 'pg', '~> 0.15'
 
@@ -33,3 +36,5 @@ group :development do
   gem 'spring'
 end
 
+# Gems to install outside the Gemfile
+# foreman
