@@ -4,7 +4,7 @@ RSpec.feature "Users", type: :feature do
   describe "index" do
     it "lists all users" do
       users = FactoryGirl.create_list(:user, 3)
-      visit "users"
+      visit  users_path(auth_token: users.first.auth_token)
       users.each do |user|
         expect(page).to have_content user.email
       end
@@ -14,7 +14,7 @@ RSpec.feature "Users", type: :feature do
   describe "show user" do
     it "shows user attributes" do
       user = FactoryGirl.create(:user)
-      visit user_path(user)
+      visit user_path(user, auth_token: user.auth_token)
       %w(email firstname lastname).each do |attribute|
         expect(page).to have_content user.send(attribute)
       end
@@ -37,7 +37,7 @@ RSpec.feature "Users", type: :feature do
   describe "edit user" do
     it "allows user to edit attributes" do
       user = FactoryGirl.create(:user)
-      visit edit_user_path(user)
+      visit edit_user_path(user, auth_token: user.auth_token)
       fill_in "First name", with: "new_first_name"
       expect {
         click_button 'Update User'

@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_action :set_user, only: [:show, :edit, :update, :destroy]
+  skip_before_action :authenticate, only: [:create, :new]
 
   def index
     @users = User.all
@@ -20,7 +20,10 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to @user, notice: 'User was successfully created.' }
+        format.html do
+          session[:user_id] = @user.id
+          redirect_to @user, notice: 'User was successfully created.'
+        end
       else
         format.html { render :new }
       end
@@ -45,10 +48,6 @@ class UsersController < ApplicationController
   end
 
   private
-    def set_user
-      @user = User.find(params[:id])
-    end
-
     def user_params
       params.require(:user).permit(:email, :firstname, :lastname)
     end
