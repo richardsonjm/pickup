@@ -9,6 +9,7 @@ gem 'dotenv-rails', group: [:development, :test]
 
 # Database
 gem 'pg', '~> 0.15'
+gem 'attribute_normalizer'
 
 # Factories
 gem 'factory_girl_rails'
