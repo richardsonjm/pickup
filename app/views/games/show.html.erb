@@ -1,0 +1,8 @@
+<p id="notice"><%= notice %></p>
+<ul>
+  <li><%= "Name: #{@game.name}" %></li>
+  <li><%= "Description: #{@game.description}" %></li>
+  <li><%= "Owner: #{@game.user.email}" %></li>
+</ul>
+<%= link_to 'Edit', edit_game_path(@game) %> |
+<%= link_to 'Back', games_path %>
