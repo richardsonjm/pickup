@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160104021849) do
+ActiveRecord::Schema.define(version: 20160106172753) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,6 +27,17 @@ ActiveRecord::Schema.define(version: 20160104021849) do
   add_index "games", ["name"], name: "index_games_on_name", unique: true, using: :btree
   add_index "games", ["user_id"], name: "index_games_on_user_id", using: :btree
 
+  create_table "memberships", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "game_id"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  add_index "memberships", ["game_id"], name: "index_memberships_on_game_id", using: :btree
+  add_index "memberships", ["user_id"], name: "index_memberships_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email",      null: false
     t.string   "firstname"
@@ -38,4 +49,6 @@ ActiveRecord::Schema.define(version: 20160104021849) do
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree
 
+  add_foreign_key "memberships", "games"
+  add_foreign_key "memberships", "users"
 end

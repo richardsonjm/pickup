@@ -33,4 +33,33 @@ RSpec.describe Game, type: :model do
     it { is_expected.to respond_to :user }
     it { is_expected.to respond_to :user_id }
   end
+
+  describe "memberships" do
+    it { is_expected.to have_many :memberships }
+    it { is_expected.to respond_to :memberships }
+    it { is_expected.to respond_to :membership_ids }
+  end
+
+  describe "members" do
+    it { is_expected.to have_many :members }
+    it { is_expected.to respond_to :members }
+    it { is_expected.to respond_to :member_ids }
+  end
+
+  describe "when game destroyed" do
+    before { @game.save! }
+
+    it "should destroy the game" do
+      expect { @game.destroy }.to change(Game, :count).by(-1)
+      expect { Game.find(@game.id) }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it "should destroy associated memberships" do
+      expect { @game.destroy }.to change(Membership, :count).by(-1)
+    end
+
+    it "should not destroy the owner or members" do
+      expect { @game.destroy }.not_to change(User, :count)
+    end
+  end
 end

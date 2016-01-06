@@ -93,4 +93,32 @@ RSpec.describe User, type: :model do
       expect(@user.blank?).to be false
     end
   end
+
+  describe "memberships" do
+    it { is_expected.to have_many :memberships }
+    it { is_expected.to respond_to :memberships }
+    it { is_expected.to respond_to :membership_ids }
+  end
+
+  describe "games" do
+    it { is_expected.to have_many :games }
+    it { is_expected.to respond_to :games }
+    it { is_expected.to respond_to :game_ids }
+  end
+
+  describe "when user destroyed" do
+    before do
+      FactoryGirl.create(:game, members: [@user])
+      @user.save!
+    end
+
+    it "should destroy the user" do
+      expect { @user.destroy }.to change(User, :count).by(-1)
+      expect { User.find(@user.id) }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+
+    it "should destroy associated memberships" do
+      expect { @user.destroy }.to change(Membership, :count).by(-1)
+    end
+  end
 end

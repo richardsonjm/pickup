@@ -8,6 +8,9 @@ class User < ActiveRecord::Base
     format: {with: /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\z/i}
   validates_uniqueness_of :auth_token
 
+  has_many :memberships, dependent: :destroy
+  has_many :games, through: :memberships
+
   TOKEN_LENGTH = 16
 
   private
