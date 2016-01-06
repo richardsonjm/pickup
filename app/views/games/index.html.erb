@@ -14,11 +14,11 @@
       <tr>
         <td><%= game.name %></td>
         <td><%= link_to 'Show', game %></td>
-        <td>
+        <td id="membership-status-for-game-<%= game.id %>">
           <% if membership = Membership.find_by(user: @user, game: game) %>
-            <%= link_to 'Leave', membership, method: :delete,  data: { confirm: 'Are you sure?' } %>
+            <%= render partial: 'memberships/leave_link', locals: {membership: membership} %>
           <% else %>
-            <%= link_to 'Join', memberships_path(membership: {user_id: @user.id, game_id: game.id}) %>
+            <%= render partial: 'memberships/join_link', locals: {game: game} %>
           <% end %>
         </td>
         <% if game.user == @user %>

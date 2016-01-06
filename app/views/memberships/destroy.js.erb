@@ -1,0 +1,3 @@
+var td = $('#membership-status-for-game-<%= @game.id %>')
+td.find('a').remove()
+td.append('<%= escape_javascript(render partial: "memberships/join_link", locals: {game: @game}) %>')

@@ -2,27 +2,20 @@ class MembershipsController < ApplicationController
   before_action :set_membership, only: [:destroy]
   before_action :check_membership_user, only: [:destroy]
 
-  def new
-    @membership = Membership.new
-  end
-
   def create
     @membership = Membership.new(membership_params)
-
     respond_to do |format|
       if @membership.save
-        format.html { redirect_to @membership, notice: 'Membership was successfully created.' }
+        format.js
       else
-        format.html { render :new }
+        format.js { render json: @membership.errors, status: :unprocessable_entity }
       end
     end
   end
 
   def destroy
+    @game = @membership.game
     @membership.destroy
-    respond_to do |format|
-      format.html { redirect_to memberships_url, notice: 'Membership was successfully destroyed.' }
-    end
   end
 
   private
